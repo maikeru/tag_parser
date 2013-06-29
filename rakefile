@@ -1,0 +1,9 @@
+
+desc "Build the ragel state machine"
+task :ragel => ["ragel/state_machine.rb"]
+
+file "ragel/state_machine.rb" => ["ragel/state_machine.rl"] do |t|
+  sh "ragel -R #{t.prerequisites.join(' ')}"
+end
+
+file "ragel/state_machine.rl"
