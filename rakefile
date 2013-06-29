@@ -1,3 +1,10 @@
+require 'rspec/core/rake_task'
+
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.rspec_opts = "--format Fuubar --color"
+end
+
+task :spec => [:ragel]
 
 desc "Build the ragel state machine"
 task :ragel => ["ragel/state_machine.rb"]
