@@ -29,7 +29,6 @@ Which means that you can iterate over any part of the structure like this:
 
 Usage
 -----
-** Not implemented yet! **
 
 ### Initialization
   parser = TagParser.new 'tag.1=value1 tag.2="value with spaces" tag'
@@ -37,8 +36,11 @@ Usage
 ### Getting a Value by Tag Name
   parser.value_for "tag.1" #=> "value1"
 
-Will only ever return one value. If multiple 
+Will only ever return one value. 
 
+TODO If multiple identical tags exist the value for the last instance of the tag in the string will be returned
+
+** Not implemented yet! **
 ### Iterate Over 
 
 
