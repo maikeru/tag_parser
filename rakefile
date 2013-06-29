@@ -2,6 +2,7 @@ require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.rspec_opts = "--format Fuubar --color"
+  t.fail_on_error = false
 end
 
 task :spec => [:ragel]

@@ -44,32 +44,34 @@ require 'pp'
 }%%
 =end
 
+class StateMachine
+
 %% write data;
 
-def emit(token_name, data, target_array, ts, te)
+def self.emit(token_name, data, target_array, ts, te)
   #pp [token_name, data, target_array, ts, te]
 
   target_array << {:name => token_name.to_sym, :value => data[ts...te].pack("c*") }
 end
 
-def save_buffers type, target_array, *parms
+def self.save_buffers type, target_array, *parms
   target_array << { type => parms }
   clear_buffers
 end
 
-def clear_buffers
+def self.clear_buffers
   @tag_buffer = ""
   @value_buffer = ""
   @quoted_buffer = []
 end
 
-def push_to_buffer(buffer, in_data, pointer)
+def self.push_to_buffer(buffer, in_data, pointer)
   #puts "in_data #{in_data}"
   #puts "pointer #{pointer}"
   buffer << [ in_data[pointer] ].pack("c*").to_s
 end
 
-def run_lexer(data)
+def self.run_lexer(data)
   @tag_buffer = ""
   @value_buffer = ""
   @qv = ""
@@ -77,19 +79,15 @@ def run_lexer(data)
   eof = data.length
   token_array = []
   token_array2 = []
-  
-  %% write init;
+  %% write init;  
   %% write exec;
 
-  #puts token_array.inspect
-  #pp token_array
-  #puts "========================"
-  #pp token_array2
   token_array2
 end
+end
 
-puts "running..."
-message = "do=command data.1=10 data.2=\"we have spaces\" mytag data.3=\"and \nnewlines!\" random=stuff data.4=\"value with \\\"escaped quotes\\\"\" all_alone "
-puts "message [#{message}]"
-run_lexer(message)
-puts "finished..."
+#puts "running..."
+#message = "do=command data.1=10 data.2=\"we have spaces\" mytag data.3=\"and \nnewlines!\" random=stuff data.4=\"value with \\\"escaped quotes\\\"\" all_alone "
+#puts "message [#{message}]"
+#run_lexer(message)
+#puts "finished..."

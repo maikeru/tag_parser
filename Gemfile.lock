@@ -6,6 +6,7 @@ GEM
       rspec (~> 2.0)
       rspec-instafail (~> 0.2.0)
       ruby-progressbar (~> 1.0)
+    rake (10.0.4)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
@@ -22,4 +23,5 @@ PLATFORMS
 
 DEPENDENCIES
   fuubar
+  rake
   rspec (~> 2.13)
