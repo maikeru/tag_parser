@@ -1,4 +1,4 @@
-require_relative '../lib/tokenizer'
+require 'tokenizer'
 
 describe Tokenizer, "#tokenize" do
   context "when input is empty string" do
