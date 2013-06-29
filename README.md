@@ -28,7 +28,7 @@ You can imagine the message has an internal structure something like this:
 ```
 
 Which means that you can iterate over any part of the structure like this:
-```
+``` ruby
   parser.structure_at("tag.2.").each do |tag, value|
     puts "tag : #{tag} value : #{value}"
   end
@@ -38,12 +38,12 @@ Usage
 -----
 
 ### Initialization
-```
+``` ruby
   parser = TagParser.new 'tag.1=value1 tag.2="value with spaces" tag'
 ```
 
 ### Getting a Value by Tag Name
-```
+``` ruby
   parser.value_for "tag.1" #=> "value1"
 ```
 
