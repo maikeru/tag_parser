@@ -7,7 +7,6 @@ class Tokenizer
   end
 
   def tokenize
-    return [] if @input.empty?
     StateMachine.run_lexer @input
   end
 end

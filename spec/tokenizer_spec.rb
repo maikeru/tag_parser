@@ -13,13 +13,19 @@ describe Tokenizer, "#tokenize" do
       tokenizer.tokens.should eq([{ tag_only: ["mytag"] }])
     end
   end
-
-  # [{:tag_with_value=>["do", "command"]},
-  #  {:tag_with_value=>["data.1", "10"]},
-  #  {:tag_with_quoted_value=>["data.2", "we have spaces"]},
-  #  {:tag_only=>["mytag", nil]},
-  #  {:tag_with_quoted_value=>["data.3", "and \nnewlines!"]},
-  #  {:tag_with_value=>["random", "stuff"]},
-  #  {:tag_with_quoted_value=>["data.4", "value with \\\"escaped quotes\\\""]},
-  #  {:tag_only=>["all_alone", nil]}]
+  context "when input is a long message" do
+    it "should return an array of tokens" do
+      message = "do=command data.1=10 data.2=\"we have spaces\" mytag data.3=\"and \nnewlines!\" random=stuff data.4=\"value with \\\"escaped quotes\\\"\" all_alone "
+      expected = [{:tag_with_value=>["do", "command"]},
+        {:tag_with_value=>["data.1", "10"]},
+        {:tag_with_quoted_value=>["data.2", "we have spaces"]},
+        {:tag_only=>["mytag"]},
+        {:tag_with_quoted_value=>["data.3", "and \nnewlines!"]},
+        {:tag_with_value=>["random", "stuff"]},
+        {:tag_with_quoted_value=>["data.4", "value with \\\"escaped quotes\\\""]},
+        {:tag_only=>["all_alone"]}]
+      tokenizer = Tokenizer.new message
+      tokenizer.tokens.should eq expected
+    end
+  end
 end
