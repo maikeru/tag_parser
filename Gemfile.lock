@@ -25,3 +25,4 @@ DEPENDENCIES
   fuubar
   rake
   rspec (~> 2.13)
+  rspec-mocks
