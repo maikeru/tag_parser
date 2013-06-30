@@ -7,9 +7,10 @@ This is a simple parser for strings with the below format:
 ```
 Some rules:
 * Values with spaces, newlines or other whitespace need to be double-quoted.
-* Values that contain double-quotes must have them escaped
+* Values that *contain* double-quotes must have them escaped
 * Unclosed double-quotes that have not been escaped are invalid
-* No whitespace or quotes in tags
+* No whitespace or quotes are allowed in tags
+* Duplicate tags overwrite previous ones, so the value for a duplicate tag will be the value of the last instance of the tag in the string.
 
 ###Tag "Nesting"
 Tags can contain "."s which have the effect of nesting the tags.
@@ -29,7 +30,7 @@ You can imagine the message has an internal structure something like this:
 
 Which means that you can iterate over any part of the structure like this:
 ``` ruby
-  parser.structure_at("tag.2.").each do |tag, value|
+  parser.tag_at("tag.2.").each do |tag, value|
     puts "tag : #{tag} value : #{value}"
   end
 ```
@@ -60,3 +61,7 @@ Why?
 I use a similar format for messaging with certain third-party software. The Java libraries provided for handling these messages leave a lot to be desired so I decided to have a go at writing something myself. It seems like a good way to learn a little bit about parsing and state machines. 
 
 "Wait a minute... why is this in Ruby?" I hear you ask. Well, partly because its easier to write than Java and partly because I want to improve my Ruby skills. Expect a Java version soon.
+
+TODO
+----
+For now the focus is on parsing a message string and providing access to its contents. The next step will be to allow manipulation of the parse objects contents and generation of a string representation of those contents.
