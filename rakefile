@@ -1,10 +1,17 @@
 require 'rspec/core/rake_task'
+require 'cucumber'
+require 'cucumber/rake/task'
+
+Cucumber::Rake::Task.new(:features) do |t|
+  t.cucumber_opts = "features --format pretty"
+end
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.rspec_opts = "--format Fuubar --color"
   t.fail_on_error = false
 end
 
+task :features => [:ragel]
 task :spec => [:ragel]
 
 desc "Build the ragel state machine"

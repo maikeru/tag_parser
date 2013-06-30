@@ -1,7 +1,6 @@
 require 'tag_parser'
 
 describe TagParser, "#value_for" do
-  # TODO stub the tokenizer and pass into TagParser
   let(:parser) do
     TagParser.new 'name=value data.1="spaced value" tag'
   end
