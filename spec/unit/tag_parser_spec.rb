@@ -25,3 +25,14 @@ describe TagParser, "#value_for" do
     end
   end
 end
+
+describe TagParser, "#tags_at" do
+  let(:message) { "data.1.name=hello data.1.value=world" }
+  context 'with the path "data.1."' do
+    it "returns a list of the tags and values at that path" do
+      @parser = TagParser.new message
+      expected = { :name => "hello", :value => "world" }
+      @parser.tags_at("data.1.").should eq expected
+    end
+  end
+end

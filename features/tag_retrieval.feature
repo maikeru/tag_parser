@@ -10,3 +10,14 @@ Feature: Access to individual tag values
     """
     When I request the value of "data.2"
     Then I should receive "we have spaces"
+
+  Scenario: Retrieving a list of tags under a given path
+    Given the following input
+    """
+    item.name=list item.1.name=subitem1 item.1.value=1024 item.2.name=subitem2 item.2.value=42
+    """
+    When I request the tags at the path "item.1."
+    Then I should receive:
+      |name  | value    |
+      |name  | subitem1 |
+      |value | 1024     |
