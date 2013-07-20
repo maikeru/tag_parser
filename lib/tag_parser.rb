@@ -2,6 +2,7 @@ require 'tokenizer'
 class TagParser
   def initialize input
     @tokens = Tokenizer.new(input).tokens
+    @key_value ||= token_to_key_value
   end
 
   def value_for tag
@@ -16,20 +17,27 @@ class TagParser
   end
 
   def tags_at path
-    @key_value ||= token_to_key_value
-    temp = Hash.new
-    @key_value.each do |key, value|
-    #@key_value.select do |key, value|
-      # if matches search path
-      if key.match('^' + path)
-        reduced_key = key.sub(path, "").to_sym
-        temp[reduced_key] = @key_value[key]
-      end
+    #Hash[@key_value.map { |k, v| [k.sub(path, "").to_sym, v] } ]
+    tags = Hash.new
+    each_match path do |key, value|
+      tags[to_relative(key, path)] = value
     end
-    temp
+    tags
   end
 
   private
+
+  def each_match path
+    @key_value.each do |key, value|
+      if key.match('^' + path)
+        yield key, value
+      end
+    end
+  end
+
+  def to_relative full, to_trim
+    full.sub(to_trim, "").to_sym
+  end
 
   # Maintains tag order in ruby 1.9.x not sure if its good to depend on this
   def token_to_key_value

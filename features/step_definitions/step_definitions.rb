@@ -16,7 +16,6 @@ end
 
 Then(/^I should receive:$/) do |table|
   # table is a Cucumber::Ast::Table
-  #@tags_at_path.should eq table.hashes
   rows_hash = table.rows_hash
   expected = Hash[rows_hash.map { |k, v| [k.to_sym, v] }]
   @tags_at_path.should eq expected

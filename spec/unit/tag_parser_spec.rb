@@ -27,7 +27,7 @@ describe TagParser, "#value_for" do
 end
 
 describe TagParser, "#tags_at" do
-  let(:message) { "data.1.name=hello data.1.value=world" }
+  let(:message) { "data.1.name=hello data.1.value=world other=tag" }
   context 'with the path "data.1."' do
     it "returns a list of the tags and values at that path" do
       @parser = TagParser.new message
